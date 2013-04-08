@@ -35,7 +35,7 @@
 
     <property name="lib.dir" location="lib"/>
     <property name="src.dir" location="src"/>
-    <property name="test.dir" location="test"/>
+    <property name="test.dir" location="src/test"/>
 
     <tstamp>
         <format property="YEAR" pattern="yyyy"/>
