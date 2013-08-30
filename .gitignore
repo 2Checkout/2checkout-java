@@ -7,3 +7,11 @@
 *.project
 *.settings
 *.idea
+.idea/*
+target/*
+out/*
+build/*
+*.iml
+*.ipr
+*.iws
+.gradle/*
