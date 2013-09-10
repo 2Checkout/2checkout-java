@@ -11,6 +11,7 @@
 target/*
 out/*
 build/*
+classes/*
 *.iml
 *.ipr
 *.iws

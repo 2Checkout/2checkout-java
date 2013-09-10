@@ -93,7 +93,7 @@ dependencies {
     compile 'com.google.guava:guava:14.0.1'
     compile 'com.google.code.gson:gson:2.2.3'
     compile 'org.apache.httpcomponents:httpclient:4.2.5'
-    compile 'junit:junit:4.11'
+    compile 'junit:junit:4.10'
 }
 
 task wrapper(type: Wrapper) {

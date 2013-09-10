@@ -8,11 +8,11 @@ Full documentation for each binding will be provided in the [Wiki](https://githu
 Installation
 ------------
 
-Add the included 2Checkout-Java.jar and it's dependencies listed below.
+Add the included 2checkout-java.jar and it's dependencies listed below.
 * [HttpClient 4.2.1](http://hc.apache.org/downloads.cgi)
 * [gson](http://code.google.com/p/google-gson/)
 
-You can also build the JAR yourself using ANT after downloading and adding the dependencies under the 'lib' directory.
+You can also build the JAR yourself using Gradle after downloading and adding the dependencies under the 'lib' directory.
 
 Example API Usage
 -----------------
