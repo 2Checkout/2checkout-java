@@ -1,5 +1,6 @@
 package com.twocheckout;
 
+import com.google.common.collect.Maps;
 import com.twocheckout.model.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -260,7 +261,7 @@ public class TwocheckoutTest {
     }
 
     @Test public void testReturnFail() {
-        HashMap params = new HashMap();
+        HashMap<String, String> params = Maps.newHashMap();
         params.put("sid", "1817037");
         params.put("total", "5.00");
         params.put("order_number", "4819138002");
@@ -270,7 +271,7 @@ public class TwocheckoutTest {
     }
 
     @Test public void testReturnSuccess() {
-        HashMap params = new HashMap();
+        HashMap<String, String> params = Maps.newHashMap();
         params.put("sid", "1817037");
         params.put("total", "1.00");
         params.put("order_number", "4819138002");
@@ -280,7 +281,7 @@ public class TwocheckoutTest {
     }
 
     @Test public void testNotificationFail() {
-        HashMap params = new HashMap();
+        HashMap<String, String> params = Maps.newHashMap();
         params.put("vendor_id", "1817037");
         params.put("invoice_id", "4343434343");
         params.put("sale_id", "4819138002");
@@ -290,7 +291,7 @@ public class TwocheckoutTest {
     }
 
     @Test public void testNotificationSuccess() {
-        HashMap params = new HashMap();
+        HashMap<String, String> params = Maps.newHashMap();
         params.put("vendor_id", "1817037");
         params.put("invoice_id", "4343434343");
         params.put("sale_id", "4819138002");
