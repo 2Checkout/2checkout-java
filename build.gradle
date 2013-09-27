@@ -12,8 +12,8 @@ applicationDefaultJvmArgs = ["-Dfile.encoding=UTF=8"]
 
 idea {
     project {
-        jdkName = "1.7"
-        languageLevel = "1.7"
+        jdkName = "1.6"
+        languageLevel = "1.6"
     }
 }
 
@@ -106,7 +106,7 @@ dependencies {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "1.7"
+    gradleVersion = "1.8"
 }
 
 jar {

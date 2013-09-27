@@ -77,7 +77,7 @@ public class Sale {
         Lineitem[] lineitems = invoice.getLineitems();
         String stopped_lineitems = null;
         StringBuffer stopped_lineitems_buffer = new StringBuffer();
-        HashMap<String, String> params = new HashMap<>();
+        HashMap<String, String> params = new HashMap<String, String>();
         for(int i = 0;i< lineitems.length; i++){
             if (lineitems[i].getBilling().getRecurringStatus() != null) {
                 if (lineitems[i].getBilling().getRecurringStatus().equals("active")) {
@@ -104,7 +104,7 @@ public class Sale {
     }
     
     public Sale refresh() throws Exception {
-        HashMap<String, String> args = new HashMap<>();
+        HashMap<String, String> args = new HashMap<String, String>();
         args.put("sale_id", String.valueOf(sale_id));
         String urlSuffix = "sales/detail_sale";
         String response = TwocheckoutApi.get(urlSuffix, args);
