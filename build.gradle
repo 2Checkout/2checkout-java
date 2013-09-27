@@ -1,20 +1,19 @@
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'maven'
-//apply plugin: 'findbugs'
-//apply plugin: 'project-report'
-//apply plugin: 'pmd'
-apply plugin: 'application'
-apply plugin: 'build-dashboard'
-apply plugin: 'codenarc'
-
+apply plugin: "java"
+apply plugin: "idea"
+apply plugin: "maven"
+apply plugin: "findbugs"
+apply plugin: "project-report"
+apply plugin: "pmd"
+apply plugin: "application"
+apply plugin: "build-dashboard"
+apply plugin: "codenarc"
 
 applicationDefaultJvmArgs = ["-Dfile.encoding=UTF=8"]
 
 idea {
     project {
-        jdkName = '1.7'
-        languageLevel = '1.7'
+        jdkName = "1.6"
+        languageLevel = "1.6"
     }
 }
 
@@ -22,31 +21,34 @@ sourceSets {
     intTest
     main {
         java {
-            srcDir 'src/main/java'
+            srcDir "src/main/java"
         }
         resources {
-            srcDir 'src/main/resources'
+            srcDir "src/main/resources"
         }
-
     }
     test {
         java {
-            srcDir 'src/test/java'
+            srcDir "src/test/java"
         }
         resources {
-            srcDir 'src/test/resources'
+            srcDir "src/test/resources"
         }
-
     }
-
 }
+
+compileJava.options.debug = true
+compileJava.options.listFiles = false
+compileJava.options.warnings = true
+compileJava.options.deprecation = true
+compileJava.options.verbose = false
 
 idea.project.ipr {
     beforeMerged { project ->
         project.modulePaths.clear()
     }
     withXml { provider ->
-        provider.node.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = 'Git'
+        provider.node.component.find { it.@name == "VcsDirectoryMappings" }.mapping.@vcs = "Git"
     }
 }
 
@@ -59,45 +61,52 @@ idea.module.iml {
     }
 }
 
-//findbugsMain.reports {
-//    xml.enabled false
-//    html.enabled true
-//}
-//
-//findbugsTest{
-//    enabled = false
-//}
-//
-//findbugsTest.reports {
-//    xml.enabled false
-//    html.enabled true
-//}
-
-project.tasks.test.configure {
-    includes = ['**/*Test.class']
+findbugsMain.reports {
+    xml.enabled false
+    html.enabled true
 }
 
-//test {
-//    testLogging {
-//        events "started", "passed", "skipped", "failed", "standardOut", "standardError"
-//    }
-//    testLogging.showStandardStreams = true
-//}
+findbugsTest{
+    enabled = false
+}
+
+findbugsTest.reports {
+    xml.enabled false
+    html.enabled true
+}
+
+project.tasks.test.configure {
+    includes = ["**/*Test.class"]
+}
+
+test {
+    testLogging {
+        events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+    }
+    testLogging.showStandardStreams = true
+}
 
 repositories {
     mavenCentral()
 }
 
+ext {
+    guavaVersion = "14.0.1"
+    gsonVersion = "2.2.3"
+    httpclientVersion = "4.2.5"
+    junitVersion= "4.10"
+}
+
 dependencies {
     /*Utils*/
-    compile 'com.google.guava:guava:14.0.1'
-    compile 'com.google.code.gson:gson:2.2.3'
-    compile 'org.apache.httpcomponents:httpclient:4.2.5'
-    compile 'junit:junit:4.10'
+    compile "com.google.guava:guava:$guavaVersion"
+    compile "com.google.code.gson:gson:$gsonVersion"
+    compile "org.apache.httpcomponents:httpclient:$httpclientVersion"
+    compile "junit:junit:$junitVersion"
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "1.7"
+    gradleVersion = "1.8"
 }
 
 jar {
@@ -108,5 +117,7 @@ jar {
         attributes ("Implementation-Version" : 1)
         attributes ("Main-Class" : "")
     }
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    exclude "META-INF/*.RSA", "META-INF/*.SF","META-INF/*.DSA"
 }
+
+jar.dependsOn(test)

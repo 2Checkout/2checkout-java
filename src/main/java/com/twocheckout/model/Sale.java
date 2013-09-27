@@ -1,9 +1,10 @@
 package com.twocheckout.model;
-import java.util.HashMap;
 import com.google.gson.Gson;
 import com.twocheckout.TwocheckoutApi;
 import com.twocheckout.TwocheckoutResponse;
 import com.twocheckout.TwocheckoutSale;
+
+import java.util.HashMap;
 
 public class Sale {
     private long sale_id;
@@ -75,6 +76,7 @@ public class Sale {
         Invoice invoice = invoices[invoices.length-1];
         Lineitem[] lineitems = invoice.getLineitems();
         String stopped_lineitems = null;
+        StringBuffer stopped_lineitems_buffer = new StringBuffer();
         HashMap<String, String> params = new HashMap<String, String>();
         for(int i = 0;i< lineitems.length; i++){
             if (lineitems[i].getBilling().getRecurringStatus() != null) {
@@ -83,11 +85,12 @@ public class Sale {
                     String response = TwocheckoutApi.post(urlSuffix, params);
                     TwocheckoutResponse resultObj = new Gson().fromJson(response, TwocheckoutResponse.class);
                     if(resultObj.getResponseCode().equals("OK")) {
-                        stopped_lineitems = stopped_lineitems + "," + String.valueOf(lineitems[i].getLineitemID());
+                        stopped_lineitems_buffer.append(",").append(String.valueOf(lineitems[i].getLineitemID()));
                     }
                 }
             }
         }
+        stopped_lineitems = stopped_lineitems_buffer.toString();
         TwocheckoutResponse responseObj = new TwocheckoutResponse();
         if (stopped_lineitems == null) {
             responseObj.setResponseCode("OK");
