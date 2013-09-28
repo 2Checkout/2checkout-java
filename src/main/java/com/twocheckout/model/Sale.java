@@ -92,11 +92,11 @@ public class Sale {
         }
         stopped_lineitems = stopped_lineitems_buffer.toString();
         TwocheckoutResponse responseObj = new TwocheckoutResponse();
-        if (stopped_lineitems == null) {
+        if (stopped_lineitems.length() == 0) {
             responseObj.setResponseCode("OK");
             responseObj.setResponseMessage("No active recurring lineitems.");
         } else {
-            stopped_lineitems = stopped_lineitems.substring(5);
+            stopped_lineitems = stopped_lineitems.substring(1);
             responseObj.setResponseCode("OK");
             responseObj.setResponseMessage(stopped_lineitems);
         }
