@@ -64,7 +64,7 @@ public class Coupon {
         if (value_off != null) {
             args.put("value_off", String.valueOf(value_off));
         }
-        String urlSuffix = "products/update_coupon";
+        String urlSuffix = "/api/products/update_coupon";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
@@ -73,7 +73,7 @@ public class Coupon {
     public TwocheckoutResponse delete() throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("coupon_code", String.valueOf(coupon_code));
-        String urlSuffix = "products/delete_coupon";
+        String urlSuffix = "/api/products/delete_coupon";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
@@ -82,7 +82,7 @@ public class Coupon {
     public Coupon refresh() throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("coupon_code", coupon_code);
-        String urlSuffix = "products/detail_coupon";
+        String urlSuffix = "/api/products/detail_coupon";
         String response = TwocheckoutApi.get(urlSuffix, args);
         TwocheckoutCoupon responseObj = new Gson().fromJson(response, TwocheckoutCoupon.class);
         return responseObj.coupon;

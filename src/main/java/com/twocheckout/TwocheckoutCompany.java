@@ -10,7 +10,7 @@ public class TwocheckoutCompany extends TwocheckoutApi {
 
     public static Company retrieve() throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
-        String urlSuffix = "acct/detail_company_info";
+        String urlSuffix = "/api/acct/detail_company_info";
         String response = TwocheckoutApi.get(urlSuffix, args);
         TwocheckoutCompany resultObj = new Gson().fromJson(response, TwocheckoutCompany.class);
         response = new Gson().toJson(resultObj.vendor_company_info);

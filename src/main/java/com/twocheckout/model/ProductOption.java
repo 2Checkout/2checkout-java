@@ -42,7 +42,7 @@ public class ProductOption {
             args.put("option_value_surcharge", String.valueOf(option_values[i].getOptionValueSurcharge()));
         }
 
-        String urlSuffix = "products/update_option";
+        String urlSuffix = "/api/products/update_option";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
@@ -51,7 +51,7 @@ public class ProductOption {
     public TwocheckoutResponse delete() throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("option_id", String.valueOf(option_id));
-        String urlSuffix = "products/delete_option";
+        String urlSuffix = "/api/products/delete_option";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
@@ -60,7 +60,7 @@ public class ProductOption {
     public ProductOption refresh() throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("option_id", String.valueOf(option_id));
-        String urlSuffix = "products/detail_option";
+        String urlSuffix = "/api/products/detail_option";
         String response = TwocheckoutApi.get(urlSuffix, args);
         TwocheckoutOption responseObj = new Gson().fromJson(response, TwocheckoutOption.class);
         return responseObj.option[0];

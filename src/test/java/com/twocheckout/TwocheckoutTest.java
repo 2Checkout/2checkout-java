@@ -4,18 +4,17 @@ import com.google.common.collect.Maps;
 import com.twocheckout.model.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.util.HashMap;
-
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import java.util.HashMap;
 
 public class TwocheckoutTest {
 
     @BeforeClass public static void setUp() {
         Twocheckout.apiusername = "APIuser1817037";
         Twocheckout.apipassword = "APIpass1817037";
+        Twocheckout.privatekey = "9999999";
     }
 
     static String product_id;
@@ -298,6 +297,35 @@ public class TwocheckoutTest {
         params.put("md5_hash", "A152B3D993B4F97E2E2A41552A4769A8");
         Boolean result = TwocheckoutNotification.check(params, "tango");
         assertTrue(result);
+    }
+
+    @Test public void testChargeAuth() throws Exception {
+        try {
+            HashMap<String, String> billing = new HashMap<String, String>();
+            billing.put("name", "Testing Tester");
+            billing.put("addrLine1", "xvxcvxcvxcvcx");
+            billing.put("city", "Columbus");
+            billing.put("state", "Ohio");
+            billing.put("country", "USA");
+            billing.put("zipCode", "43230");
+            billing.put("email", "tester@2co.com");
+            billing.put("phone", "555-555-5555");
+
+            HashMap<String, Object> request = new HashMap<String, Object>();
+            request.put("sellerId", "1817037");
+            request.put("merchantOrderId", "test123");
+            request.put("token", "MGI4OTU0OTQtMDIxNi00YThlLTliOTctZjg1YmJiMzg0MjA3");
+            request.put("currency", "USD");
+            request.put("total", "1.00");
+            request.put("billing", billing);
+
+            Authorization response = TwocheckoutCharge.authorize(request);
+            assertEquals("APPROVED", response.getResponseCode());
+        } catch (TwocheckoutException e) {
+            String message = e.toString();
+            assertEquals("com.twocheckout.TwocheckoutException: " +
+                    "Bad request - parameter error", message);
+        }
     }
 
 }

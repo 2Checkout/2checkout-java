@@ -1,5 +1,7 @@
 package com.twocheckout;
 
+import com.twocheckout.model.Authorization;
+
 public class TwocheckoutResponse {
     private String response_code;
     private String response_message;
@@ -7,6 +9,7 @@ public class TwocheckoutResponse {
     private String assigned_product_id;
     private String coupon_code;
     private String option_id;
+    private Authorization response;
 
     public String getResponseCode() {
         return response_code;
@@ -44,4 +47,5 @@ public class TwocheckoutResponse {
     public void setOptionId(String option_id) {
         this.option_id = option_id;
     }
+    public Authorization getAuthResponse() { return response; }
 }

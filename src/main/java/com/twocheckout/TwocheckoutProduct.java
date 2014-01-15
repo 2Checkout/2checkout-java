@@ -11,7 +11,7 @@ public class TwocheckoutProduct extends TwocheckoutApi {
     public static Product retrieve(String product_id) throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("product_id", product_id);
-        String urlSuffix = "products/detail_product";
+        String urlSuffix = "/api/products/detail_product";
         String response = TwocheckoutApi.get(urlSuffix, args);
         TwocheckoutProduct resultObj = new Gson().fromJson(response, TwocheckoutProduct.class);
         response = new Gson().toJson(resultObj.product);
@@ -20,14 +20,14 @@ public class TwocheckoutProduct extends TwocheckoutApi {
     }
 
     public static ProductList list(HashMap<String, String> args) throws Exception {
-        String urlSuffix = "products/list_products";
+        String urlSuffix = "/api/products/list_products";
         String response = TwocheckoutApi.get(urlSuffix, args);
         ProductList responseObj = new Gson().fromJson(response, ProductList.class);
         return responseObj;
     }
 
     public static TwocheckoutResponse create(HashMap<String, String> args) throws Exception {
-        String urlSuffix = "products/create_product";
+        String urlSuffix = "/api/products/create_product";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;

@@ -89,7 +89,7 @@ public class Invoice {
     
     public TwocheckoutResponse refund(HashMap<String, String> args) throws Exception {
         args.put("invoice_id", String.valueOf(invoice_id));
-        String urlSuffix = "sales/refund_invoice";
+        String urlSuffix = "/api/sales/refund_invoice";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;

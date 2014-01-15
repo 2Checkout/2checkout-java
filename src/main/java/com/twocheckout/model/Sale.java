@@ -40,7 +40,7 @@ public class Sale {
     
     public TwocheckoutResponse refund(HashMap<String, String> args) throws Exception {
         args.put("sale_id", String.valueOf(sale_id));
-        String urlSuffix = "sales/refund_invoice";
+        String urlSuffix = "/api/sales/refund_invoice";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
@@ -48,7 +48,7 @@ public class Sale {
     
     public TwocheckoutResponse comment(HashMap<String, String> args) throws Exception {
         args.put("sale_id", String.valueOf(sale_id));;
-        String urlSuffix = "sales/create_comment";
+        String urlSuffix = "/api/sales/create_comment";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
@@ -57,7 +57,7 @@ public class Sale {
     public TwocheckoutResponse reauth() throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("sale_id", String.valueOf(sale_id));
-        String urlSuffix = "sales/reauth";
+        String urlSuffix = "/api/sales/reauth";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
@@ -65,14 +65,14 @@ public class Sale {
     
     public TwocheckoutResponse ship(HashMap<String, String> args) throws Exception {
         args.put("sale_id", String.valueOf(sale_id));
-        String urlSuffix = "sales/mark_shipped";
+        String urlSuffix = "/api/sales/mark_shipped";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
     }
     
     public TwocheckoutResponse stop() throws Exception {
-        String urlSuffix = "sales/stop_lineitem_recurring";
+        String urlSuffix = "/api/sales/stop_lineitem_recurring";
         Invoice invoice = invoices[invoices.length-1];
         Lineitem[] lineitems = invoice.getLineitems();
         String stopped_lineitems = null;
@@ -106,7 +106,7 @@ public class Sale {
     public Sale refresh() throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("sale_id", String.valueOf(sale_id));
-        String urlSuffix = "sales/detail_sale";
+        String urlSuffix = "/api/sales/detail_sale";
         String response = TwocheckoutApi.get(urlSuffix, args);
         TwocheckoutSale responseObj = new Gson().fromJson(response, TwocheckoutSale.class);
         response = new Gson().toJson(responseObj.sale);

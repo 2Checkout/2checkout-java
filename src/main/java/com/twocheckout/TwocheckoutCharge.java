@@ -1,4 +1,6 @@
 package com.twocheckout;
+import com.google.gson.Gson;
+import com.twocheckout.model.Authorization;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,7 +12,7 @@ public abstract class TwocheckoutCharge {
 
     public static String form(HashMap<String, String> args) {
         StringBuilder html = new StringBuilder();
-        html.append( "<form id=\"2checkout\" action=\"https://www.2checkout.com/checkout/spurchase\" method=\"post\">\n" );
+        html.append( "<form id=\"2checkout\" action=\"https://www.2checkout.com/checkout/purchase\" method=\"post\">\n" );
         for (Map.Entry<String, String> entry : args.entrySet())
         {
             html.append( "<input type=\"hidden\" name=\"" + entry.getKey() + "\" value=\"" + entry.getValue() + "\"/>\n" );
@@ -21,7 +23,7 @@ public abstract class TwocheckoutCharge {
 
     public static String submit(HashMap<String, String> args) {
         StringBuilder html = new StringBuilder();
-        html.append( "<form id=\"2checkout\" action=\"https://www.2checkout.com/checkout/spurchase\" method=\"post\">\n" );
+        html.append( "<form id=\"2checkout\" action=\"https://www.2checkout.com/checkout/purchase\" method=\"post\">\n" );
         for (Map.Entry<String, String> entry : args.entrySet())
         {
             html.append( "<input type=\"hidden\" name=\"" + entry.getKey() + "\" value=\"" + entry.getValue() + "\"/>\n" );
@@ -32,12 +34,21 @@ public abstract class TwocheckoutCharge {
     }
 
     public static String url(HashMap<String, String> args) {
-        String url = "https://www.2checkout.com/checkout/spurchase?";
+        String url = "https://www.2checkout.com/checkout/purchase?";
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         for (Map.Entry<String, String> entry : args.entrySet()) {
             params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
         }
         String paramString = URLEncodedUtils.format(params, "utf-8");
         return url += paramString;
+    }
+
+    public static Authorization authorize(HashMap<String, Object> args) throws Exception {
+        String urlSuffix = "/checkout/api/1/" + args.get("sellerId") + "/rs/authService";
+        String response = TwocheckoutApi.auth(urlSuffix, args);
+        TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
+        response = new Gson().toJson(responseObj.getAuthResponse());
+        Authorization responseObject = new Gson().fromJson(response, Authorization.class);
+        return responseObject;
     }
 }

@@ -14,7 +14,70 @@ Add the included 2checkout-java.jar and it's dependencies listed below.
 
 You can also build the JAR yourself using Gradle after downloading and adding the dependencies under the 'lib' directory.
 
-Example API Usage
+
+Example Purchase API Usage
+-----------------
+
+*Example Usage:*
+
+```java
+Twocheckout.privatekey = "555555555555";
+
+try {
+    HashMap<String, String> billing = new HashMap<String, String>();
+    billing.put("name", "Testing Tester");
+    billing.put("addrLine1", "xvxcvxcvxcvcx");
+    billing.put("city", "Columbus");
+    billing.put("state", "Ohio");
+    billing.put("country", "USA");
+    billing.put("zipCode", "43230");
+    billing.put("email", "tester@2co.com");
+    billing.put("phone", "555-555-5555");
+
+    HashMap<String, Object> request = new HashMap<String, Object>();
+    request.put("sellerId", "1817037");
+    request.put("merchantOrderId", "test123");
+    request.put("token", "MGI4OTU0OTQtMDIxNi00YThlLTliOTctZjg1YmJiMzg0MjA3");
+    request.put("currency", "USD");
+    request.put("total", "1.00");
+    request.put("billing", billing);
+
+    Authorization response = TwocheckoutCharge.authorize(request);
+    String message = response.getResponseMessage();
+} catch (Exception e) {
+    String message = e.toString();
+}
+```
+
+*Example Response: (toJson)*
+
+```json
+{
+    "type": "AuthResponse",
+    "responseCode": "APPROVED",
+    "currencyCode": "USD",
+    "orderNumber": "205181062452",
+    "transactionId": "205181062461",
+    "responseMsg": "Successfully authorized the provided credit card",
+    "merchantOrderId": "test123",
+    "total": 1,
+    "lineItems": [
+        {
+            "type": "product",
+            "name": "test123",
+            "description": "",
+            "price": 1,
+            "quantity": 1,
+            "tangible": "N",
+            "productId": "",
+            "options": []
+        }
+    ]
+}
+```
+
+
+Example Admin API Usage
 -----------------
 
 *Example Usage:*

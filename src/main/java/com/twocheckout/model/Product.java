@@ -184,7 +184,7 @@ public class Product {
             args.put("category_id", String.valueOf(categories[i].getCategoryId()));
         }
 
-        String urlSuffix = "products/update_product";
+        String urlSuffix = "/api/products/update_product";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
@@ -193,7 +193,7 @@ public class Product {
     public TwocheckoutResponse delete() throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("product_id", String.valueOf(product_id));
-        String urlSuffix = "products/delete_product";
+        String urlSuffix = "/api/products/delete_product";
         String response = TwocheckoutApi.post(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
@@ -202,7 +202,7 @@ public class Product {
     public Product refresh() throws Exception {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("product_id", String.valueOf(product_id));
-        String urlSuffix = "products/detail_product";
+        String urlSuffix = "/api/products/detail_product";
         String response = TwocheckoutApi.get(urlSuffix, args);
         TwocheckoutProduct responseObj = new Gson().fromJson(response, TwocheckoutProduct.class);
         response = new Gson().toJson(responseObj.product);

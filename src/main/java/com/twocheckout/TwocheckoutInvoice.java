@@ -9,7 +9,7 @@ public class TwocheckoutInvoice extends TwocheckoutApi {
     public Sale sale;
 
     public static Sale retrieve(String invoice_id) throws Exception {
-        String urlSuffix = "sales/detail_sale";
+        String urlSuffix = "/api/sales/detail_sale";
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("invoice_id", invoice_id);
         String response = TwocheckoutApi.get(urlSuffix, args);
