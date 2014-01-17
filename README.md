@@ -21,7 +21,7 @@ Example Purchase API Usage
 *Example Usage:*
 
 ```java
-Twocheckout.privatekey = "555555555555";
+Twocheckout.privatekey = "3508079E-5383-44D4-BF69-DC619C0D9811";
 
 try {
     HashMap<String, String> billing = new HashMap<String, String>();
