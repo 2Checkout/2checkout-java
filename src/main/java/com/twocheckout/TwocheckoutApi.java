@@ -31,7 +31,12 @@ public abstract class TwocheckoutApi {
         ArrayList<NameValuePair> params = TwocheckoutUtil.convert(args);
         String apiusername = Twocheckout.apiusername;
         String apipassword = Twocheckout.apipassword;
-        String url = Twocheckout.baseURL+urlSuffix;
+        String url;
+        if (Twocheckout.mode == "sandbox" ) {
+            url = Twocheckout.sandboxBaseURL+urlSuffix;
+        } else {
+            url = Twocheckout.baseURL+urlSuffix;
+        }
         url = addLocationToUrl(url, params);
         String mainObject = null;
         
@@ -68,7 +73,12 @@ public abstract class TwocheckoutApi {
         ArrayList<NameValuePair> params = TwocheckoutUtil.convert(args);
         String apiusername = Twocheckout.apiusername;
         String apipassword = Twocheckout.apipassword;
-        String url = Twocheckout.baseURL+urlSuffix;
+        String url;
+        if (Twocheckout.mode == "sandbox" ) {
+            url = Twocheckout.sandboxBaseURL+urlSuffix;
+        } else {
+            url = Twocheckout.baseURL+urlSuffix;
+        }
         String mainObject = null;
            URI uri;
         try {
