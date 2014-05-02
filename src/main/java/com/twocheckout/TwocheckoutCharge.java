@@ -9,10 +9,14 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 public abstract class TwocheckoutCharge {
+    public static String checkout_url() {
+        return Twocheckout.mode.equals("sandbox") ?
+                Twocheckout.sandboxBaseURL : Twocheckout.baseURL;
+    }
 
     public static String form(HashMap<String, String> args) {
         StringBuilder html = new StringBuilder();
-        html.append( "<form id=\"2checkout\" action=\"https://www.2checkout.com/checkout/purchase\" method=\"post\">\n" );
+        html.append( "<form id=\"2checkout\" action=\"" + checkout_url() + "/checkout/purchase\" method=\"post\">\n" );
         for (Map.Entry<String, String> entry : args.entrySet())
         {
             html.append( "<input type=\"hidden\" name=\"" + entry.getKey() + "\" value=\"" + entry.getValue() + "\"/>\n" );
@@ -23,7 +27,7 @@ public abstract class TwocheckoutCharge {
 
     public static String submit(HashMap<String, String> args) {
         StringBuilder html = new StringBuilder();
-        html.append( "<form id=\"2checkout\" action=\"https://www.2checkout.com/checkout/purchase\" method=\"post\">\n" );
+        html.append( "<form id=\"2checkout\" action=\"" + checkout_url() + "/checkout/purchase\" method=\"post\">\n" );
         for (Map.Entry<String, String> entry : args.entrySet())
         {
             html.append( "<input type=\"hidden\" name=\"" + entry.getKey() + "\" value=\"" + entry.getValue() + "\"/>\n" );
@@ -34,7 +38,7 @@ public abstract class TwocheckoutCharge {
     }
 
     public static String url(HashMap<String, String> args) {
-        String url = "https://www.2checkout.com/checkout/purchase?";
+        String url = checkout_url() + "/checkout/purchase?";
         ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
         for (Map.Entry<String, String> entry : args.entrySet()) {
             params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
