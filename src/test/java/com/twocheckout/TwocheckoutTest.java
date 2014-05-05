@@ -313,12 +313,12 @@ public class TwocheckoutTest {
             billing.put("phone", "555-555-5555");
 
             HashMap<String, Object> request = new HashMap<String, Object>();
-            request.put("sellerId", "901248204");
+            request.put("sellerId", "90124820");
             request.put("merchantOrderId", "test123");
             request.put("token", "Yzc0OGU0ZGItMzcxZi00MzQ5LWE2YjAtZmMzNTRjMWNiZGQ1");
             request.put("currency", "USD");
             request.put("total", "1.00");
-            request.put("billing", billing);
+            request.put("billingAddr", billing);
 
             Authorization response = TwocheckoutCharge.authorize(request);
             assertEquals("APPROVED", response.getResponseCode());

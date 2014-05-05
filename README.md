@@ -40,10 +40,10 @@ try {
     request.put("token", "MGI4OTU0OTQtMDIxNi00YThlLTliOTctZjg1YmJiMzg0MjA3");
     request.put("currency", "USD");
     request.put("total", "1.00");
-    request.put("billing", billing);
+    request.put("billingAddr", billing);
 
     Authorization response = TwocheckoutCharge.authorize(request);
-    String message = response.getResponseMessage();
+    String message = response.getResponseMsg();
 } catch (Exception e) {
     String message = e.toString();
 }
