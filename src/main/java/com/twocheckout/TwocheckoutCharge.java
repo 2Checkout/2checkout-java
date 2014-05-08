@@ -47,7 +47,7 @@ public abstract class TwocheckoutCharge {
         return url += paramString;
     }
 
-    public static Authorization authorize(HashMap<String, Object> args) throws Exception {
+    public static Authorization authorize(HashMap<String, Object> args) throws TwocheckoutException {
         String urlSuffix = "/checkout/api/1/" + args.get("sellerId") + "/rs/authService";
         String response = TwocheckoutApi.auth(urlSuffix, args);
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);

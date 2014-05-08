@@ -4,6 +4,8 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import com.twocheckout.TwocheckoutApi;
 import com.twocheckout.TwocheckoutResponse;
+import com.twocheckout.TwocheckoutException;
+
 
 public class Invoice {
     private long invoice_id;
@@ -87,7 +89,7 @@ public class Invoice {
         return shipping;
     }
     
-    public TwocheckoutResponse refund(HashMap<String, String> args) throws Exception {
+    public TwocheckoutResponse refund(HashMap<String, String> args) throws TwocheckoutException {
         args.put("invoice_id", String.valueOf(invoice_id));
         String urlSuffix = "/api/sales/refund_invoice";
         String response = TwocheckoutApi.post(urlSuffix, args);

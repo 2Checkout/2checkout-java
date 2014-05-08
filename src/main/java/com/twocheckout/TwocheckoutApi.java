@@ -27,7 +27,7 @@ import java.util.List;
  
 public abstract class TwocheckoutApi {
  
-    public static String get(String urlSuffix, HashMap<String, String> args) throws Exception {
+    public static String get(String urlSuffix, HashMap<String, String> args) throws TwocheckoutException {
         ArrayList<NameValuePair> params = TwocheckoutUtil.convert(args);
         String apiusername = Twocheckout.apiusername;
         String apipassword = Twocheckout.apipassword;
@@ -63,13 +63,13 @@ public abstract class TwocheckoutApi {
             }
 
         } catch (Exception e) {
-            throw e;
+            throw new TwocheckoutException(e.getMessage());
         }
 
         return mainObject;
     }
 
-    public static String post(String urlSuffix, HashMap<String, String> args) throws Exception {
+    public static String post(String urlSuffix, HashMap<String, String> args) throws TwocheckoutException {
         ArrayList<NameValuePair> params = TwocheckoutUtil.convert(args);
         String apiusername = Twocheckout.apiusername;
         String apipassword = Twocheckout.apipassword;
@@ -104,13 +104,13 @@ public abstract class TwocheckoutApi {
             }
 
         } catch (Exception e) {
-            throw e;
+            throw new TwocheckoutException(e.getMessage());
         }
 
         return mainObject;
     }
 
-    public static String auth(String urlSuffix, HashMap<String, Object> args) throws Exception {
+    public static String auth(String urlSuffix, HashMap<String, Object> args) throws TwocheckoutException {
         args.put("privateKey", Twocheckout.privatekey);
         String request = new Gson().toJson(args);
         String url;
@@ -140,7 +140,7 @@ public abstract class TwocheckoutApi {
             }
 
         } catch (Exception e) {
-            throw e;
+            throw new TwocheckoutException(e.getMessage());
         }
 
         return mainObject;

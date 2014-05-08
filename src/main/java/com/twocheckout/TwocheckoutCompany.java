@@ -8,7 +8,7 @@ public class TwocheckoutCompany extends TwocheckoutApi {
 
     public Company vendor_company_info;
 
-    public static Company retrieve() throws Exception {
+    public static Company retrieve() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         String urlSuffix = "/api/acct/detail_company_info";
         String response = TwocheckoutApi.get(urlSuffix, args);

@@ -8,7 +8,7 @@ public class TwocheckoutContact extends TwocheckoutApi {
 
     public Contact vendor_contact_info;
 
-    public static Contact retrieve() throws Exception {
+    public static Contact retrieve() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         String urlSuffix = "/api/acct/detail_contact_info";
         String response = TwocheckoutApi.get(urlSuffix, args);

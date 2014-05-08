@@ -4,6 +4,8 @@ import java.util.HashMap;
 import com.google.gson.Gson;
 import com.twocheckout.TwocheckoutApi;
 import com.twocheckout.TwocheckoutResponse;
+import com.twocheckout.TwocheckoutException;
+
 
 public class Lineitem {
     private long lineitem_id;
@@ -181,7 +183,7 @@ public class Lineitem {
         return vendor_product_id;
     }
     
-    public TwocheckoutResponse refund(HashMap<String, String> args) throws Exception {
+    public TwocheckoutResponse refund(HashMap<String, String> args) throws TwocheckoutException {
         args.put("lineitem_id", String.valueOf(lineitem_id));
         String urlSuffix = "/api/sales/refund_lineitem";
         String response = TwocheckoutApi.post(urlSuffix, args);
@@ -189,7 +191,7 @@ public class Lineitem {
         return responseObj;
     }
     
-    public TwocheckoutResponse stop() throws Exception {
+    public TwocheckoutResponse stop() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("lineitem_id", String.valueOf(lineitem_id));
         String urlSuffix = "/api/sales/stop_lineitem_recurring";

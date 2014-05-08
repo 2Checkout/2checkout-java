@@ -3,6 +3,8 @@ import com.google.gson.Gson;
 import com.twocheckout.TwocheckoutApi;
 import com.twocheckout.TwocheckoutResponse;
 import com.twocheckout.TwocheckoutSale;
+import com.twocheckout.TwocheckoutException;
+
 
 import java.util.HashMap;
 
@@ -38,7 +40,7 @@ public class Sale {
         return comments;
     }
     
-    public TwocheckoutResponse refund(HashMap<String, String> args) throws Exception {
+    public TwocheckoutResponse refund(HashMap<String, String> args) throws TwocheckoutException {
         args.put("sale_id", String.valueOf(sale_id));
         String urlSuffix = "/api/sales/refund_invoice";
         String response = TwocheckoutApi.post(urlSuffix, args);
@@ -46,7 +48,7 @@ public class Sale {
         return responseObj;
     }
     
-    public TwocheckoutResponse comment(HashMap<String, String> args) throws Exception {
+    public TwocheckoutResponse comment(HashMap<String, String> args) throws TwocheckoutException {
         args.put("sale_id", String.valueOf(sale_id));;
         String urlSuffix = "/api/sales/create_comment";
         String response = TwocheckoutApi.post(urlSuffix, args);
@@ -54,7 +56,7 @@ public class Sale {
         return responseObj;
     }
     
-    public TwocheckoutResponse reauth() throws Exception {
+    public TwocheckoutResponse reauth() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("sale_id", String.valueOf(sale_id));
         String urlSuffix = "/api/sales/reauth";
@@ -63,7 +65,7 @@ public class Sale {
         return responseObj;
     }
     
-    public TwocheckoutResponse ship(HashMap<String, String> args) throws Exception {
+    public TwocheckoutResponse ship(HashMap<String, String> args) throws TwocheckoutException {
         args.put("sale_id", String.valueOf(sale_id));
         String urlSuffix = "/api/sales/mark_shipped";
         String response = TwocheckoutApi.post(urlSuffix, args);
@@ -71,7 +73,7 @@ public class Sale {
         return responseObj;
     }
     
-    public TwocheckoutResponse stop() throws Exception {
+    public TwocheckoutResponse stop() throws TwocheckoutException {
         String urlSuffix = "/api/sales/stop_lineitem_recurring";
         Invoice invoice = invoices[invoices.length-1];
         Lineitem[] lineitems = invoice.getLineitems();
@@ -103,7 +105,7 @@ public class Sale {
         return responseObj;
     }
     
-    public Sale refresh() throws Exception {
+    public Sale refresh() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("sale_id", String.valueOf(sale_id));
         String urlSuffix = "/api/sales/detail_sale";

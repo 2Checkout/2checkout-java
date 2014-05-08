@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.twocheckout.TwocheckoutApi;
 import com.twocheckout.TwocheckoutCoupon;
 import com.twocheckout.TwocheckoutResponse;
+import com.twocheckout.TwocheckoutException;
+
 
 public class Coupon {
     private String coupon_code;
@@ -52,7 +54,7 @@ public class Coupon {
         this.value_off = value_off;
     }
 
-    public TwocheckoutResponse update() throws Exception {
+    public TwocheckoutResponse update() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("coupon_code", coupon_code);
         args.put("date_expire", date_expire);
@@ -70,7 +72,7 @@ public class Coupon {
         return responseObj;
     }
 
-    public TwocheckoutResponse delete() throws Exception {
+    public TwocheckoutResponse delete() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("coupon_code", String.valueOf(coupon_code));
         String urlSuffix = "/api/products/delete_coupon";
@@ -79,7 +81,7 @@ public class Coupon {
         return responseObj;
     }
     
-    public Coupon refresh() throws Exception {
+    public Coupon refresh() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("coupon_code", coupon_code);
         String urlSuffix = "/api/products/detail_coupon";

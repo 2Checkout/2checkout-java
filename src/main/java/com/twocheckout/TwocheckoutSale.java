@@ -9,7 +9,7 @@ public class TwocheckoutSale extends TwocheckoutApi {
 
     public Sale sale;
 
-    public static Sale retrieve(String sale_id) throws Exception {
+    public static Sale retrieve(String sale_id) throws TwocheckoutException {
         String urlSuffix = "/api/sales/detail_sale";
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("sale_id", sale_id);
@@ -20,7 +20,7 @@ public class TwocheckoutSale extends TwocheckoutApi {
         return responseObj;
     }
 
-    public static SaleList list(HashMap<String, String> args) throws Exception {
+    public static SaleList list(HashMap<String, String> args) throws TwocheckoutException {
         String urlSuffix = "/api/sales/list_sales";
         String response = TwocheckoutApi.get(urlSuffix, args);
         SaleList responseObj = new Gson().fromJson(response, SaleList.class);

@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.twocheckout.TwocheckoutApi;
 import com.twocheckout.TwocheckoutOption;
 import com.twocheckout.TwocheckoutResponse;
+import com.twocheckout.TwocheckoutException;
 
 public class ProductOption {
     private long option_id;
@@ -31,7 +32,7 @@ public class ProductOption {
         this.option_values = option_values;
     }
 
-    public TwocheckoutResponse update() throws Exception {
+    public TwocheckoutResponse update() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("option_id", String.valueOf(option_id));
         args.put("option_name", option_name);
@@ -48,7 +49,7 @@ public class ProductOption {
         return responseObj;
     }
 
-    public TwocheckoutResponse delete() throws Exception {
+    public TwocheckoutResponse delete() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("option_id", String.valueOf(option_id));
         String urlSuffix = "/api/products/delete_option";
@@ -57,7 +58,7 @@ public class ProductOption {
         return responseObj;
     }
     
-    public ProductOption refresh() throws Exception {
+    public ProductOption refresh() throws TwocheckoutException {
         HashMap<String, String> args = new HashMap<String, String>();
         args.put("option_id", String.valueOf(option_id));
         String urlSuffix = "/api/products/detail_option";
