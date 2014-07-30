@@ -94,19 +94,20 @@ ext {
     guavaVersion = "14.0.1"
     gsonVersion = "2.2.3"
     httpclientVersion = "4.2.5"
-    junitVersion= "4.10"
+    junitVersion= "4.11"
 }
 
 dependencies {
     /*Utils*/
-    compile "com.google.guava:guava:$guavaVersion"
-    compile "com.google.code.gson:gson:$gsonVersion"
-    compile "org.apache.httpcomponents:httpclient:$httpclientVersion"
-    compile "junit:junit:$junitVersion"
+    compile(group: "com.google.guava",          name: "guava",      version: guavaVersion)
+    compile(group: "com.google.code.gson",      name: "gson",       version: gsonVersion)
+    compile(group: "org.apache.httpcomponents", name: "httpclient", version: httpclientVersion)
+
+    testCompile(group: "junit", name: "junit", version: junitVersion)
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = "1.8"
+    gradleVersion = "2.0"
 }
 
 jar {
@@ -119,5 +120,7 @@ jar {
     }
     exclude "META-INF/*.RSA", "META-INF/*.SF","META-INF/*.DSA"
 }
+
+defaultTasks "clean", "test", "build"
 
 jar.dependsOn(test)
