@@ -12,7 +12,7 @@ public class Sale {
     private long sale_id;
     private String ip_address;
     private String ip_country;
-    private String recurring_decline;
+    private RecurringDecline recurring_decline;
     private Invoice[] invoices;
     private Comments[] comments;
 
@@ -28,7 +28,7 @@ public class Sale {
         return ip_country;
     }
     
-    public String getRecurringDecline() {
+    public RecurringDecline getRecurringDecline() {
         return recurring_decline;
     }
     
