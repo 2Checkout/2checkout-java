@@ -14,19 +14,22 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.params.ClientPNames;
 import org.apache.http.client.params.CookiePolicy;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.ContentType;
-
+import javax.net.ssl.SSLContext;
 import java.net.URI;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
- 
 public abstract class TwocheckoutApi {
- 
+
     public static String get(String urlSuffix, HashMap<String, String> args) throws TwocheckoutException {
         ArrayList<NameValuePair> params = TwocheckoutUtil.convert(args);
         String apiusername = Twocheckout.apiusername;
@@ -40,7 +43,8 @@ public abstract class TwocheckoutApi {
         try {
 
             URI uri = new URI(url);
-            DefaultHttpClient httpclient = new DefaultHttpClient();
+            DefaultHttpClient httpclient = createHttpClient();
+
             httpclient.getCredentialsProvider().setCredentials(
                     new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
                         new UsernamePasswordCredentials(apiusername, apipassword));
@@ -77,7 +81,8 @@ public abstract class TwocheckoutApi {
            URI uri;
         try {
             uri = new URI(url);
-            DefaultHttpClient httpclient = new DefaultHttpClient();
+            DefaultHttpClient httpclient = createHttpClient();
+
             httpclient.getCredentialsProvider().setCredentials(
                new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
                   new UsernamePasswordCredentials(apiusername, apipassword));
@@ -114,7 +119,8 @@ public abstract class TwocheckoutApi {
         URI uri;
         try {
             uri = new URI(url);
-            DefaultHttpClient httpclient = new DefaultHttpClient();
+            DefaultHttpClient httpclient = createHttpClient();
+
             HttpPost httppost = new HttpPost(uri);
             httppost.setHeader("Accept", "application/json");
             httppost.setHeader("User-Agent", String.format("2Checkout/Java/%s", Twocheckout.VERSION));
@@ -162,6 +168,19 @@ public abstract class TwocheckoutApi {
             AuthException exception = exceptions.getAuthExceptions();
             throw new TwocheckoutException(exception.getMessage());
         }
+    }
+
+    private static DefaultHttpClient createHttpClient() throws KeyManagementException, NoSuchAlgorithmException {
+        DefaultHttpClient httpclient = new DefaultHttpClient();
+
+        // Get instance of TLSv1.2 SSLContext and init with defaults
+        SSLContext sslContext = SSLContext.getInstance("TLSv1.2");
+        sslContext.init(null, null, null);
+        SSLSocketFactory sf = new SSLSocketFactory(sslContext);
+
+        httpclient.getConnectionManager().getSchemeRegistry().register(new Scheme("https", 443, sf));
+
+        return httpclient;
     }
 
 }
