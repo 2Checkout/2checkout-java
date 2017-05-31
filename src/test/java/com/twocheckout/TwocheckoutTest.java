@@ -55,7 +55,7 @@ public class TwocheckoutTest {
             assertEquals("refund added to invoice", message);
         } catch (TwocheckoutException e) {
             String message = e.toString();
-            assertEquals("com.twocheckout.TwocheckoutException: Invoice was already refunded.", message);
+            assertEquals("com.twocheckout.TwocheckoutException: Invoice too old to refund.", message);
         }
     }
 
@@ -70,7 +70,7 @@ public class TwocheckoutTest {
             assertEquals("Refund added to invoice", message);
         } catch (TwocheckoutException e) {
             String message = e.toString();
-            assertEquals("com.twocheckout.TwocheckoutException: Invoice was already refunded.", message);
+            assertEquals("com.twocheckout.TwocheckoutException: Invoice too old to refund.", message);
         }
     }
 
@@ -113,7 +113,7 @@ public class TwocheckoutTest {
             assertEquals("lineitem refunded", message);
         } catch (TwocheckoutException e) {
             String message = e.toString();
-            assertEquals("com.twocheckout.TwocheckoutException: Lineitem was already refunded.", message);
+            assertEquals("com.twocheckout.TwocheckoutException: This lineitem cannot be refunded.", message);
         }
     }
 
