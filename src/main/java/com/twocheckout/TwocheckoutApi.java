@@ -62,9 +62,10 @@ public abstract class TwocheckoutApi {
             if (responseBody != null) {
                 return responseBody;
             }
-
+        } catch (TwocheckoutException e) {
+            throw new TwocheckoutException(e.getMessage(), e.getCode());
         } catch (Exception e) {
-            throw new TwocheckoutException(e.getMessage());
+            throw new TwocheckoutException(e.getMessage(), "500");
         }
 
         return mainObject;
@@ -101,9 +102,10 @@ public abstract class TwocheckoutApi {
             if (responseBody != null) {
                 return responseBody;
             }
-
+        } catch (TwocheckoutException e) {
+            throw new TwocheckoutException(e.getMessage(), e.getCode());
         } catch (Exception e) {
-            throw new TwocheckoutException(e.getMessage());
+            throw new TwocheckoutException(e.getMessage(), "500");
         }
 
         return mainObject;
@@ -129,13 +131,14 @@ public abstract class TwocheckoutApi {
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             String responseBody = EntityUtils.toString(entity);
-            checkStatusCodeAuth(response, responseBody);
             httpclient.getConnectionManager().shutdown();
+            checkStatusCodeAuth(response, responseBody);
 
             if (responseBody != null) {
                 return responseBody;
             }
-
+        } catch (TwocheckoutException e) {
+            throw new TwocheckoutException(e.getMessage(), e.getCode());
         } catch (Exception e) {
             throw new TwocheckoutException(e.getMessage());
         }
@@ -157,7 +160,7 @@ public abstract class TwocheckoutApi {
         if (status.getStatusCode() != HttpStatus.SC_OK) {
             Errors errors = new Gson().fromJson(responseBody, Errors.class);
             Error[] error = errors.getErrors();
-            throw new TwocheckoutException(error[0].getMessage());
+            throw new TwocheckoutException(error[0].getMessage(), error[0].getCode());
         }
     }
 
@@ -166,7 +169,7 @@ public abstract class TwocheckoutApi {
         if (status.getStatusCode() != HttpStatus.SC_OK && status.getStatusCode() != HttpStatus.SC_ACCEPTED ) {
             AuthExceptions exceptions = new Gson().fromJson(responseBody, AuthExceptions.class);
             AuthException exception = exceptions.getAuthExceptions();
-            throw new TwocheckoutException(exception.getMessage());
+            throw new TwocheckoutException(exception.getMessage(), exception.getCode());
         }
     }
 
