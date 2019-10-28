@@ -14,7 +14,7 @@ public class Invoice {
     private String date_shipped;
     private String date_vendor_paid;
     private BigDecimal fees_2co;
-    private Boolean recurring;
+    private String recurring;
     private String referrer;
     private long sale_id;
     private String status;
@@ -46,7 +46,7 @@ public class Invoice {
     }
     
     public Boolean getRecurring() {
-        return recurring;
+        return recurring == "1" ? true : false;
     }
     
     public BigDecimal getFees2co() {

@@ -30,7 +30,7 @@ public class Lineitem {
     private String product_duration;
     private BigDecimal product_handling;
     private long product_id;
-    private Boolean product_is_cart;
+    private String product_is_cart;
     private String product_name;
     private BigDecimal product_price;
     private String product_recurrence;
@@ -133,7 +133,7 @@ public class Lineitem {
     }
     
     public Boolean getProductIsCart() {
-        return product_is_cart;
+        return product_is_cart == "1" ? true : false;
     }
     
     public String getProductName() {

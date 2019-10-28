@@ -5,7 +5,7 @@ public class Sales {
     private String sale_id;
     private String date_placed;
     private String customer_name;
-    private Boolean recurring;
+    private String recurring;
     private String recurring_declined;
     private BigDecimal usd_total;
     private String decline_code;
@@ -24,7 +24,7 @@ public class Sales {
     }
 
     public Boolean getRecurring() {
-        return recurring;
+        return recurring == "1" ? true : false;
     }
 
     public String getRecurringDeclined() {
