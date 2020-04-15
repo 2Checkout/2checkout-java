@@ -12,9 +12,9 @@ import java.util.HashMap;
 public class TwocheckoutTest {
 
     @BeforeClass public static void setUp() {
-        Twocheckout.apiusername = "test_api_250111206876";
-        Twocheckout.apipassword = "Qwerty123";
-        Twocheckout.privatekey = "1D336D05-05AA-40A4-AEF6-DF58D222E6F4";
+        Twocheckout.apiusername = "CREDENTIALS HERE";
+        Twocheckout.apipassword = "CREDENTIALS HERE";
+        Twocheckout.privatekey = "CREDENTIALS HERE";
     }
 
     static String product_id;
