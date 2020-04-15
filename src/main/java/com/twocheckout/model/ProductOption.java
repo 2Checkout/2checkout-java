@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import com.google.gson.Gson;
 import com.twocheckout.TwocheckoutApi;
-import com.twocheckout.TwocheckoutOption;
 import com.twocheckout.TwocheckoutResponse;
 import com.twocheckout.TwocheckoutException;
 
@@ -57,13 +56,5 @@ public class ProductOption {
         TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
         return responseObj;
     }
-    
-    public ProductOption refresh() throws TwocheckoutException {
-        HashMap<String, String> args = new HashMap<String, String>();
-        args.put("option_id", String.valueOf(option_id));
-        String urlSuffix = "/api/products/detail_option";
-        String response = TwocheckoutApi.get(urlSuffix, args);
-        TwocheckoutOption responseObj = new Gson().fromJson(response, TwocheckoutOption.class);
-        return responseObj.option[0];
-    }
+
 }

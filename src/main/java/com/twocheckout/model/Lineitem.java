@@ -133,7 +133,7 @@ public class Lineitem {
     }
     
     public Boolean getProductIsCart() {
-        return product_is_cart == "1" ? true : false;
+        return product_is_cart.equals("1");
     }
     
     public String getProductName() {
@@ -187,8 +187,7 @@ public class Lineitem {
         args.put("lineitem_id", String.valueOf(lineitem_id));
         String urlSuffix = "/api/sales/refund_lineitem";
         String response = TwocheckoutApi.post(urlSuffix, args);
-        TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
-        return responseObj;
+        return new Gson().fromJson(response, TwocheckoutResponse.class);
     }
     
     public TwocheckoutResponse stop() throws TwocheckoutException {
@@ -196,7 +195,6 @@ public class Lineitem {
         args.put("lineitem_id", String.valueOf(lineitem_id));
         String urlSuffix = "/api/sales/stop_lineitem_recurring";
         String response = TwocheckoutApi.post(urlSuffix, args);
-        TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
-        return responseObj;
+        return new Gson().fromJson(response, TwocheckoutResponse.class);
     }
 }

@@ -7,7 +7,6 @@ public class TwocheckoutResponse {
     private String response_message;
     private String product_id;
     private String assigned_product_id;
-    private String coupon_code;
     private String option_id;
     private Authorization response;
 
@@ -34,12 +33,6 @@ public class TwocheckoutResponse {
     }
     public void setAssignedProductId(String assigned_product_id) {
         this.assigned_product_id = assigned_product_id;
-    }
-    public String getCouponCode() {
-        return coupon_code;
-    }
-    public void setCouponCode(String coupon_code) {
-        this.coupon_code = coupon_code;
     }
     public String getOptionId() {
         return option_id;

@@ -12,14 +12,12 @@ import java.util.HashMap;
 public class TwocheckoutTest {
 
     @BeforeClass public static void setUp() {
-        Twocheckout.apiusername = "CREDENTIALS_HERE";
-        Twocheckout.apipassword = "CREDENTIALS_HERE";
-        Twocheckout.privatekey = "CREDENTIALS_HERE";
+        Twocheckout.apiusername = "test_api_250111206876";
+        Twocheckout.apipassword = "Qwerty123";
+        Twocheckout.privatekey = "1D336D05-05AA-40A4-AEF6-DF58D222E6F4";
     }
 
     static String product_id;
-    static String option_id;
-    static String coupon_code;
 
     @Test public void testSaleRetrieve() throws Exception {
         try {
@@ -34,9 +32,9 @@ public class TwocheckoutTest {
 
     @Test public void testInvoiceRetrieve() throws Exception {
         try {
-            Sale sale = TwocheckoutInvoice.retrieve("250334501627");
+            Sale sale = TwocheckoutInvoice.retrieve("250334725631");
             String sale_id = String.valueOf(sale.getSaleId());
-            assertEquals("250334501627", sale_id);
+            assertEquals("250334725632", sale_id);
         } catch (TwocheckoutException e) {
             String message = e.toString();
             assertEquals("com.twocheckout.TwocheckoutException: Unable to find record.", message);
@@ -44,37 +42,38 @@ public class TwocheckoutTest {
     }
 
     @Test public void testInvoiceRefund() throws Exception {
-        HashMap<String, String> params = new HashMap<String, String>();
+        HashMap<String, String> params = new HashMap<>();
         params.put("comment", "test");
         params.put("category", "1");
+
         try {
-            Sale sale = TwocheckoutInvoice.retrieve("9093717691821");
+            Sale sale = TwocheckoutInvoice.retrieve("250334725631");
             TwocheckoutResponse result = sale.refund(params);
             String message = result.getResponseMessage();
             assertEquals("refund added to invoice", message);
         } catch (TwocheckoutException e) {
             String message = e.toString();
-            assertEquals("com.twocheckout.TwocheckoutException: Invoice too old to refund.", message);
+            assertEquals("com.twocheckout.TwocheckoutException: Amount greater than remaining balance on invoice.", message);
         }
     }
 
     @Test public void testSaleRefund() throws Exception {
-        HashMap<String, String> params = new HashMap<String, String>();
+        HashMap<String, String> params = new HashMap<>();
         params.put("comment", "test");
         params.put("category", "1");
         try {
-            Sale sale = TwocheckoutSale.retrieve("9093717691800");
+            Sale sale = TwocheckoutSale.retrieve("250334226612");
             TwocheckoutResponse result = sale.refund(params);
             String message = result.getResponseMessage();
-            assertEquals("Refund added to invoice", message);
+            assertEquals("refund added to invoice", message);
         } catch (TwocheckoutException e) {
             String message = e.toString();
-            assertEquals("com.twocheckout.TwocheckoutException: Invoice too old to refund.", message);
+            assertEquals("com.twocheckout.TwocheckoutException: Amount greater than remaining balance on invoice.", message);
         }
     }
 
     @Test public void testSaleStop() throws Exception {
-        Sale sale = TwocheckoutSale.retrieve("9093717691800");
+        Sale sale = TwocheckoutSale.retrieve("250334624367");
         TwocheckoutResponse result = sale.stop();
         String message = result.getResponseMessage();
         assertEquals("No active recurring lineitems.", message);
@@ -83,7 +82,7 @@ public class TwocheckoutTest {
 
     @Test public void testLineitemStop() throws Exception {
         try {
-            Sale sale = TwocheckoutSale.retrieve("9093717691800");
+            Sale sale = TwocheckoutSale.retrieve("250192108517");
             Invoice[] invoices = sale.getInvoices();
             Invoice invoice = invoices[invoices.length-1];
             Lineitem[] lineitems = invoice.getLineitems();
@@ -98,11 +97,11 @@ public class TwocheckoutTest {
     }
 
     @Test public void testLineitemRefund() throws Exception {
-        HashMap<String, String> params = new HashMap<String, String>();
+        HashMap<String, String> params = new HashMap<>();
         params.put("comment", "test");
         params.put("category", "1");
         try {
-            Sale sale = TwocheckoutSale.retrieve("9093717691800");
+            Sale sale = TwocheckoutSale.retrieve("250334226612");
             Invoice[] invoices = sale.getInvoices();
             Invoice invoice = invoices[invoices.length-1];
             Lineitem[] lineitems = invoice.getLineitems();
@@ -112,13 +111,13 @@ public class TwocheckoutTest {
             assertEquals("lineitem refunded", message);
         } catch (TwocheckoutException e) {
             String message = e.toString();
-            assertEquals("com.twocheckout.TwocheckoutException: This lineitem cannot be refunded.", message);
+            assertEquals("com.twocheckout.TwocheckoutException: Lineitem amount greater than remaining balance on invoice.", message);
         }
     }
 
     @Test public void testSaleComment() throws Exception {
-        Sale sale = TwocheckoutSale.retrieve("9093717691800");
-        HashMap<String, String> params = new HashMap<String, String>();
+        Sale sale = TwocheckoutSale.retrieve("250334624367");
+        HashMap<String, String> params = new HashMap<>();
         params.put("sale_comment", "test");
         TwocheckoutResponse result = sale.comment(params);
         String message = result.getResponseMessage();
@@ -127,8 +126,8 @@ public class TwocheckoutTest {
 
     @Test public void testSaleShip() throws Exception {
         try {
-            Sale sale = TwocheckoutSale.retrieve("9093717691800");
-            HashMap<String, String> params = new HashMap<String, String>();
+            Sale sale = TwocheckoutSale.retrieve("250334226612");
+            HashMap<String, String> params = new HashMap<>();
             params.put("tracking_number", "test");
             TwocheckoutResponse result = sale.ship(params);
             String message = result.getResponseMessage();
@@ -139,22 +138,9 @@ public class TwocheckoutTest {
         }
     }
 
-    @Test public void testSaleReauth() throws Exception {
-        try {
-            Sale sale = TwocheckoutSale.retrieve("9093717691800");
-            TwocheckoutResponse result = sale.reauth();
-            String message = result.getResponseMessage();
-            assertEquals("Payment reauthorized.", message);
-        } catch (TwocheckoutException e) {
-            String message = e.toString();
-            assertEquals("com.twocheckout.TwocheckoutException: " +
-                    "Payment is already pending or deposited and cannot be reauthorized.", message);
-        }
-    }
-
     @Test public void testProductCreate() throws Exception {
         try {
-            HashMap<String, String> params = new HashMap<String, String>();
+            HashMap<String, String> params = new HashMap<>();
             params.put("name", "test");
             params.put("price", "1.00");
             params.put("vendor_product_id", "Test");
@@ -168,95 +154,11 @@ public class TwocheckoutTest {
             params.put("recurrence", "1 Month");
             params.put("duration", "Forever");
             TwocheckoutResponse result = TwocheckoutProduct.create(params);
-            Product product = TwocheckoutProduct.retrieve(result.getProductId());
-            product_id = result.getProductId();
             String message = result.getResponseMessage();
-            assertEquals("Product successfully created", message);
-            assertEquals("Test Short Description", product.getDescription());
+            assertEquals("Product successfully created.", message);
         } catch (TwocheckoutException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test public void testProductRetrieve() throws Exception {
-        Product product = TwocheckoutProduct.retrieve(product_id);
-        assertEquals(product_id, String.valueOf(product.getProductId()));
-    }
-
-    @Test public void testProductUpdate() throws Exception {
-        Product product = TwocheckoutProduct.retrieve(product_id);
-        TwocheckoutResponse result = product.update();
-        assertEquals("Product successfully updated", result.getResponseMessage());
-    }
-
-    @Test public void testProductDelete() throws Exception {
-        Product product = TwocheckoutProduct.retrieve(product_id);
-        TwocheckoutResponse result = product.delete();
-        assertEquals("Product successfully deleted.", result.getResponseMessage());
-    }
-
-    @Test public void testOptionCreate() throws Exception {
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("option_name", "test");
-        params.put("option_value_name", "test");
-        params.put("option_value_surcharge", "1.00");
-        TwocheckoutResponse result = TwocheckoutOption.create(params);
-        option_id = result.getOptionId();
-        assertEquals("Option created successfully", result.getResponseMessage());
-    }
-
-    @Test public void testOptionRetrieve() throws Exception {
-        ProductOption option = TwocheckoutOption.retrieve(option_id);
-        assertEquals(option_id, String.valueOf(option.getOptionId()));
-    }
-
-    @Test public void testOptionUpdate() throws Exception {
-        try {
-            ProductOption option = TwocheckoutOption.retrieve(option_id);
-            TwocheckoutResponse result = option.update();
-            assertEquals("Option updated successfully", result.getResponseMessage());
-        } catch (TwocheckoutException e) {
-            String message = e.toString();
-            assertEquals("com.twocheckout.TwocheckoutException: " +
-                    "Specified option_value_id does not belong to specifed option_id.", message);
-        }
-    }
-
-    @Test public void testOptionDelete() throws Exception {
-        ProductOption option = TwocheckoutOption.retrieve(option_id);
-        TwocheckoutResponse result = option.delete();
-        assertEquals("Option deleted successfully", result.getResponseMessage());
-    }
-
-    @Test public void testCouponCreate() throws Exception {
-        HashMap<String, String> params = new HashMap<String, String>();
-        long unixTime = System.currentTimeMillis() / 1000L;
-        String code = Long.toString(unixTime);
-        params.put("coupon_code", code);
-        params.put("date_expire", "2020-12-12");
-        params.put("type", "sale");
-        params.put("minimum_purchase", "1.00");
-        params.put("value_off", "0.50");
-        TwocheckoutResponse result = TwocheckoutCoupon.create(params);
-        coupon_code = result.getCouponCode();
-        assertEquals("Coupon successfully created", result.getResponseMessage());
-    }
-
-    @Test public void testCouponRetrieve() throws Exception {
-        Coupon coupon = TwocheckoutCoupon.retrieve(coupon_code);
-        assertEquals(coupon_code, coupon.getCouponCode());
-    }
-
-    @Test public void testCouponUpdate() throws Exception {
-        Coupon coupon = TwocheckoutCoupon.retrieve(coupon_code);
-        TwocheckoutResponse result = coupon.update();
-        assertEquals("Coupon updated successfully", result.getResponseMessage());
-    }
-
-    @Test public void testCouponDelete() throws Exception {
-        Coupon coupon = TwocheckoutCoupon.retrieve(coupon_code);
-        TwocheckoutResponse result = coupon.delete();
-        assertEquals("Coupon successfully deleted.", result.getResponseMessage());
     }
 
     @Test public void testReturnFail() {
@@ -301,8 +203,8 @@ public class TwocheckoutTest {
 
     @Test public void testChargeAuth() throws Exception {
         try {
-            HashMap<String, String> billing = new HashMap<String, String>();
-            billing.put("name", "Testing Tester");
+            HashMap<String, String> billing = new HashMap<>();
+            billing.put("name", "John Doe");
             billing.put("addrLine1", "123 Test St");
             billing.put("city", "Columbus");
             billing.put("state", "Ohio");
@@ -311,13 +213,14 @@ public class TwocheckoutTest {
             billing.put("email", "tester@2co.com");
             billing.put("phone", "555-555-5555");
 
-            HashMap<String, Object> request = new HashMap<String, Object>();
-            request.put("sellerId", "90124820");
+            HashMap<String, Object> request = new HashMap<>();
+            request.put("sellerId", "250111206876");
             request.put("merchantOrderId", "test123");
-            request.put("token", "Yzc0OGU0ZGItMzcxZi00MzQ5LWE2YjAtZmMzNTRjMWNiZGQ1");
+            request.put("token", "OWVhOTZiYjEtY2ZmMi00NDhhLThjNmUtM2Y4ZmVkYTNhMDE5");
             request.put("currency", "USD");
             request.put("total", "1.00");
             request.put("billingAddr", billing);
+            request.put("demo", true);
 
             Authorization response = TwocheckoutCharge.authorize(request);
             assertEquals("APPROVED", response.getResponseCode());
