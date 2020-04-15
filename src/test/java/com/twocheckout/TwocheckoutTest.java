@@ -12,10 +12,9 @@ import java.util.HashMap;
 public class TwocheckoutTest {
 
     @BeforeClass public static void setUp() {
-        Twocheckout.apiusername = "testlibraryapi901248204";
-        Twocheckout.apipassword = "testlibraryapi901248204PASS";
-        Twocheckout.privatekey = "BE632CB0-BB29-11E3-AFB6-D99C28100996";
-        Twocheckout.mode = "sandbox";
+        Twocheckout.apiusername = "CREDENTIALS_HERE";
+        Twocheckout.apipassword = "CREDENTIALS_HERE";
+        Twocheckout.privatekey = "CREDENTIALS_HERE";
     }
 
     static String product_id;
@@ -24,9 +23,9 @@ public class TwocheckoutTest {
 
     @Test public void testSaleRetrieve() throws Exception {
         try {
-            Sale sale = TwocheckoutSale.retrieve("9093717691800");
+            Sale sale = TwocheckoutSale.retrieve("250334615672");
             String sale_id = String.valueOf(sale.getSaleId());
-            assertEquals("9093717691800", sale_id);
+            assertEquals("250334615672", sale_id);
         } catch (TwocheckoutException e) {
             String message = e.toString();
             assertEquals("com.twocheckout.TwocheckoutException: Unable to find record.", message);
@@ -35,9 +34,9 @@ public class TwocheckoutTest {
 
     @Test public void testInvoiceRetrieve() throws Exception {
         try {
-            Sale sale = TwocheckoutInvoice.retrieve("9093717691821");
+            Sale sale = TwocheckoutInvoice.retrieve("250334501627");
             String sale_id = String.valueOf(sale.getSaleId());
-            assertEquals("9093717691800", sale_id);
+            assertEquals("250334501627", sale_id);
         } catch (TwocheckoutException e) {
             String message = e.toString();
             assertEquals("com.twocheckout.TwocheckoutException: Unable to find record.", message);
