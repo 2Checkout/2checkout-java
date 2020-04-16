@@ -127,7 +127,7 @@ public abstract class TwocheckoutApi {
             httppost.setHeader("Accept", "application/json");
             httppost.setHeader("User-Agent", String.format("2Checkout/Java/%s", Twocheckout.VERSION));
             httppost.getParams().setParameter(ClientPNames.COOKIE_POLICY, CookiePolicy.RFC_2109);
-            httppost.setEntity(new StringEntity(request, ContentType.create("application/json")));
+            httppost.setEntity(new StringEntity(request, ContentType.create("application/json", "UTF-8")));
             HttpResponse response = httpclient.execute(httppost);
             HttpEntity entity = response.getEntity();
             String responseBody = EntityUtils.toString(entity);
