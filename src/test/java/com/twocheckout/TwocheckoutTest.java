@@ -214,7 +214,7 @@ public class TwocheckoutTest {
             billing.put("phone", "555-555-5555");
 
             HashMap<String, Object> request = new HashMap<>();
-            request.put("sellerId", "250111206876");
+            request.put("sellerId", "merchantcode");
             request.put("merchantOrderId", "test123");
             request.put("token", "OWVhOTZiYjEtY2ZmMi00NDhhLThjNmUtM2Y4ZmVkYTNhMDE5");
             request.put("currency", "USD");
