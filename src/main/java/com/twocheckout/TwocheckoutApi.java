@@ -34,9 +34,7 @@ public abstract class TwocheckoutApi {
         ArrayList<NameValuePair> params = TwocheckoutUtil.convert(args);
         String apiusername = Twocheckout.apiusername;
         String apipassword = Twocheckout.apipassword;
-        String url = "sandbox".equals(Twocheckout.mode)
-            ? Twocheckout.sandboxBaseURL + urlSuffix
-            : Twocheckout.baseURL + urlSuffix;
+        String url = Twocheckout.baseURL + urlSuffix;
         url = addLocationToUrl(url, params);
         String mainObject = null;
         
@@ -75,9 +73,7 @@ public abstract class TwocheckoutApi {
         ArrayList<NameValuePair> params = TwocheckoutUtil.convert(args);
         String apiusername = Twocheckout.apiusername;
         String apipassword = Twocheckout.apipassword;
-        String url = "sandbox".equals(Twocheckout.mode)
-            ? Twocheckout.sandboxBaseURL+urlSuffix
-            : Twocheckout.baseURL+urlSuffix;
+        String url = Twocheckout.baseURL+urlSuffix;
         String mainObject = null;
            URI uri;
         try {
@@ -114,9 +110,7 @@ public abstract class TwocheckoutApi {
     public static String auth(String urlSuffix, HashMap<String, Object> args) throws TwocheckoutException {
         args.put("privateKey", Twocheckout.privatekey);
         String request = new Gson().toJson(args);
-        String url = "sandbox".equals(Twocheckout.mode)
-            ? Twocheckout.sandboxBaseURL+urlSuffix
-            : Twocheckout.baseURL+urlSuffix;
+        String url = Twocheckout.baseURL+urlSuffix;
         String mainObject = null;
         URI uri;
         try {

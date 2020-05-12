@@ -56,15 +56,6 @@ public class Sale {
         return responseObj;
     }
     
-    public TwocheckoutResponse reauth() throws TwocheckoutException {
-        HashMap<String, String> args = new HashMap<String, String>();
-        args.put("sale_id", String.valueOf(sale_id));
-        String urlSuffix = "/api/sales/reauth";
-        String response = TwocheckoutApi.post(urlSuffix, args);
-        TwocheckoutResponse responseObj = new Gson().fromJson(response, TwocheckoutResponse.class);
-        return responseObj;
-    }
-    
     public TwocheckoutResponse ship(HashMap<String, String> args) throws TwocheckoutException {
         args.put("sale_id", String.valueOf(sale_id));
         String urlSuffix = "/api/sales/mark_shipped";

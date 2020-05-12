@@ -10,8 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 public abstract class TwocheckoutCharge {
     public static String checkout_url() {
-        return Twocheckout.mode.equals("sandbox") ?
-                Twocheckout.sandboxBaseURL : Twocheckout.baseURL;
+        return Twocheckout.baseURL;
     }
 
     public static String form(HashMap<String, String> args) {

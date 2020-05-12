@@ -109,15 +109,15 @@ task wrapper(type: Wrapper) {
     gradleVersion = "1.8"
 }
 
-jar {
-    doFirst {
-        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    }
-    manifest {
-        attributes ("Implementation-Version" : 1)
-        attributes ("Main-Class" : "")
-    }
-    exclude "META-INF/*.RSA", "META-INF/*.SF","META-INF/*.DSA"
-}
-
-jar.dependsOn(test)
+//jar {
+//    doFirst {
+//        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//    }
+//    manifest {
+//        attributes ("Implementation-Version" : 1)
+//        attributes ("Main-Class" : "")
+//    }
+//    exclude "META-INF/*.RSA", "META-INF/*.SF","META-INF/*.DSA"
+//}
+//
+//jar.dependsOn(test)
